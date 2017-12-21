@@ -32,8 +32,8 @@ public class StartscreenHandler implements ActionListener {
         // Der Button zum Hinzufuegen von Eintraegen wurde gedrueckt
         if ( e.getSource() == Main.getFenster().getAddEntryButton() && Main.getFenster().getReady() ) {
             // Komponenten des Dialogfensters
-            JTextField de = new JTextField(5);
-            JTextField en = new JTextField(5);
+            JTextField de = new HintTextField( "Deutsch" );
+            JTextField en = new HintTextField( "Englisch" );
             JPanel panel = new JPanel();
             panel.setLayout( new BoxLayout(panel, BoxLayout.PAGE_AXIS) );
             panel.add( de );
@@ -75,8 +75,8 @@ public class StartscreenHandler implements ActionListener {
         // Der Button zum Loeschen eines Eintrags wurde gedrueckt
         if ( e.getSource() == Main.getFenster().getDeleteEntryButton() && Main.getFenster().getReady() ) {
             // Komponenten des Dialogfensters
-            JTextField de = new JTextField(5);
-            JTextField en = new JTextField(5);
+            JTextField de = new HintTextField( "Deutsch" );
+            JTextField en = new HintTextField( "Englisch" );
             JPanel panel = new JPanel();
             panel.setLayout( new BoxLayout(panel, BoxLayout.PAGE_AXIS) );
             panel.add( de );

@@ -5,8 +5,8 @@ public class Fenster {
 
     // Frame sowie dessen Abmessungen
     private JFrame frame;
-    private final int BREITE = 800;
-    private final int HOEHE = 600;
+    private final int BREITE = 1024;
+    private final int HOEHE = 768;
 
     // Button zum Hinzufuegen eines Eintrages
     private JButton addEntry;
@@ -52,6 +52,7 @@ public class Fenster {
         frame.setResizable( false );
         frame.setLocationRelativeTo( null );
         frame.setLayout( null );
+        frame.setBackground( new Color( 100, 149, 237 ) );
         frame.setVisible( true );
 
         // Neuen Listener erzeugen
@@ -73,43 +74,50 @@ public class Fenster {
         chooseList = new JComboBox<String>( data.getLists() );
         chooseList.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START, BUTTON_WIDTH, BUTTON_HEIGHT );
         frame.add( chooseList );
+        ( (JLabel)chooseList.getRenderer() ).setHorizontalAlignment( SwingConstants.CENTER );
+        chooseList.setBackground( new Color( 175, 238, 238 ) );
         chooseList.setVisible( true );
 
         // showEntries Button settings
         showEntries = new JButton( "Eintr\u00E4ge anzeigen" );
         showEntries.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + BUTTON_HEIGHT + 10, BUTTON_WIDTH, BUTTON_HEIGHT );
         frame.add( showEntries );
+        showEntries.setBackground( new Color( 175, 238, 238 ) );
         showEntries.setVisible( true );
         showEntries.addActionListener( handler );
         // addEntry Button settings
         addEntry = new JButton( "Eintrag hinzuf\u00FCgen" );
         addEntry.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + 2 * BUTTON_HEIGHT + 20, BUTTON_WIDTH, BUTTON_HEIGHT );
         frame.add( addEntry );
+        addEntry.setBackground( new Color( 175, 238, 238 ) );
         addEntry.setVisible( true );
         addEntry.addActionListener( handler );
         // deleteEntry Button settings
         deleteEntry = new JButton( "Eintrag l\u00F6schen" );
         deleteEntry.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + 3 * BUTTON_HEIGHT + 30, BUTTON_WIDTH, BUTTON_HEIGHT );
         frame.add( deleteEntry );
+        deleteEntry.setBackground( new Color( 175, 238, 238 ) );
         deleteEntry.setVisible( true );
         deleteEntry.addActionListener( handler );
         // newList Button settings
         newList = new JButton( "Stapel hinzuf\u00FCgen" );
         newList.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + 4 * BUTTON_HEIGHT + 40, BUTTON_WIDTH, BUTTON_HEIGHT );
         frame.add( newList );
+        newList.setBackground( new Color( 175, 238, 238 ) );
         newList.setVisible( true );
         newList.addActionListener( handler );
         // deleteList Button settings
         deleteList = new JButton( "Stapel l\u00F6schen" );
         deleteList.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + 5 * BUTTON_HEIGHT + 50, BUTTON_WIDTH, BUTTON_HEIGHT );
         frame.add( deleteList );
+        deleteList.setBackground( new Color( 175, 238, 238 ) );
         deleteList.setVisible( true );
         deleteList.addActionListener( handler );
         // startTest Button settings
         startTest = new JButton( "Test starten" );
         startTest.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + 6 * BUTTON_HEIGHT + 60, BUTTON_WIDTH, BUTTON_HEIGHT );
         frame.add( startTest );
-        startTest.setBackground( Color.GREEN );
+        startTest.setBackground( new Color( 30, 144, 255 ) );
         startTest.setVisible( true );
         startTest.addActionListener( handler );
     }

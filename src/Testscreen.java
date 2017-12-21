@@ -7,14 +7,12 @@ import java.util.TimerTask;
 public class Testscreen extends JFrame {
 
     // Abmessungen des Fensters
-    private final int BREITE = 800;
-    private final int HOEHE = 600;
+    private final int BREITE = 1024;
+    private final int HOEHE = 768;
     // Anzahl Vokabeln
     private int anzahlVokabeln;
-    // Anzahl Vokabeln pro Spalte
-    private int maxAnzahlVokabelnProSpalte = 25;
     // Maximale Anzahl an Vokabeln
-    private int maxAnzahlVokabeln = 2 * maxAnzahlVokabelnProSpalte;
+    private final int MAX_ANZAHL_VOKABELN = 50;
     // Abgabebutton
     private JButton abgeben;
     // Listener
@@ -23,10 +21,6 @@ public class Testscreen extends JFrame {
     private TextField[] inputFieldsL;
     // Eingabefelder rechts
     private TextField[] inputFieldsR;
-    // Eingabefelder links Spalte 2
-    private TextField[] inputFieldsL2;
-    // Eingabefelder rechts Spalte 2
-    private TextField[] inputFieldsR2;
     // Englische Vokabeln
     private String[] englishWords;
     // Deutsche Vokabeln
@@ -58,8 +52,8 @@ public class Testscreen extends JFrame {
         anzahlVokabeln = Main.getFenster().getHandler().getTrainer().getAnzahlVokabeln();
 
         // Anzahl beschraenken (damit alle in das Fenster passen)
-        if ( anzahlVokabeln > maxAnzahlVokabeln ) {
-            anzahlVokabeln = maxAnzahlVokabeln;
+        if ( anzahlVokabeln > MAX_ANZAHL_VOKABELN ) {
+            anzahlVokabeln = MAX_ANZAHL_VOKABELN;
         }
 
         // Vokabeln holen
@@ -99,100 +93,42 @@ public class Testscreen extends JFrame {
     public void initInputFields() {
         // Anzahl Vokabeln als Array Laenge
         int arrayLength = anzahlVokabeln;
-        // Wenn zu gross fuer eine Spalte, dann anpassen
-        if ( arrayLength > maxAnzahlVokabelnProSpalte ) {
-            arrayLength = maxAnzahlVokabelnProSpalte;
-        }
-        // Eine Spalte erzeugen
-        createColumns( inputFieldsL, inputFieldsR, 10, arrayLength, 1 );
-        // Pruefen, ob eine weitere Spalte noetig ist
-        arrayLength = anzahlVokabeln - maxAnzahlVokabelnProSpalte;
-        // Wenn immernoch zu gross, dann abschneiden
-        if ( arrayLength > maxAnzahlVokabeln ) {
-            arrayLength = maxAnzahlVokabeln;
-        }
-        // Wenn keine Spalte uebrig ist, kann negatives Ergebnis entstehen,
-        // wir setzen die Laenge daher wieder auf 0
-        if ( arrayLength < 0 ) {
-            arrayLength = 0;
-        }
-        // Zweite Spalte erzeugen
-        createColumns( inputFieldsL2, inputFieldsR2, BREITE / 2 + 100, arrayLength, 2 );
-    }
-
-    /**
-     * Fuehrt die Initialisierung der Eingabefelder durch,
-     * damit wir mehrere Spalten initialisieren koennen
-     * @param links Die Eingabefelder links
-     * @param rechts Die Eingabefelder rechts
-     * @param xPos Die x Position der Eingabefelder
-     * @param arrayLength Die Laenge des Arrays, das die Eingabefelder speichert
-     * @param num Die Nummer der Spalte
-     */
-    public void createColumns( TextField[] links, TextField[] rechts, int xPos, int arrayLength, int num ) {
         // Abmessungen der Felder
         int inputFieldWidth = 100;
         int inputFieldHeight = 20;
-        // Label platzieren. Wenn arrayLength = 0, dann existiert keine zweite Spalte und wir
-        // platzieren dort auch keine Label
-        if ( arrayLength > 0 ) {
-            addLabel( xPos, inputFieldWidth, inputFieldHeight );
-        }
-        // linke Seite
+        // Label fuer Eingabefelder
+        addLabel( 10, inputFieldWidth, inputFieldHeight );
+        
+        // links (Eingabefelder fuer deutsche Woerter)
         links = new TextField[arrayLength];
         for (int i = 0; i < links.length; i++) {
             links[i] = new TextField();
             add( links[i] );
-            links[i].setBounds( xPos, 50 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            links[i].setBounds( 10, 50 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
             links[i].setVisible( true );
             // nur jedes zweite Feld als Input
             if ( ( i % 2 ) == 0 ) {
                 links[i].setEditable( false );
-                // Spalte 1
-                if ( num == 1 ) {
-                    links[i].setText( germanWords[i] );
-                }
-                // Spalte 2
-                else if ( num == 2 ) {
-                    links[i].setText( germanWords[maxAnzahlVokabelnProSpalte + i] );
-                }
+                links[i].setText( germanWords[i] );
             }
         }
         // Daten sichern
-        if ( num == 1 ) {
-            inputFieldsL = links;
-        }
-        else if ( num == 2 ) {
-            inputFieldsL2 = links;
-        }
+        inputFieldsL = links;
 
         // rechte Seite
         rechts = new TextField[arrayLength];
         for (int j = 0; j < rechts.length; j++) {
             rechts[j] = new TextField();
             add( rechts[j] );
-            rechts[j].setBounds( xPos + 40 + inputFieldWidth, 50 + j * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            rechts[j].setBounds( 50 + inputFieldWidth, 50 + j * inputFieldHeight, inputFieldWidth, inputFieldHeight );
             rechts[j].setVisible( true );
             // nur jedes zweite Feld als Input
             if ( ( j % 2 ) == 1 ) {
                 rechts[j].setEditable( false );
-                // Spalte 1
-                if ( num == 1 ) {
-                    rechts[j].setText( englishWords[j] );
-                }
-                // Spalte 2
-                else if ( num == 2 ) {
-                    rechts[j].setText( englishWords[maxAnzahlVokabelnProSpalte + j] );
-                }
+                rechts[j].setText( englishWords[j] );
             }
         }
-        // Daten sichern
-        if ( num == 1 ) {
-            inputFieldsR = rechts;
-        }
-        else if ( num == 2 ) {
-            inputFieldsR2 = rechts;
-        }
+        inputFieldsR = rechts;
     }
 
     /**
@@ -255,13 +191,11 @@ public class Testscreen extends JFrame {
             output = minutes + ":" + "0" + seconds;
             clock.setText( output );
             repaint();
-            // System.out.println( minutes + ":" + "0" + seconds );
         }
         else {
             output = minutes + ":" + seconds;
             clock.setText( output );
             repaint();
-            // System.out.println( minutes + ":" + seconds );
         }
     }
 
@@ -290,10 +224,10 @@ public class Testscreen extends JFrame {
 
     /**
      * Gibt die maximale Anzahl an Vokabeln zurueck
-     * @return maxAnzahlVokabeln Die maximale Anzahl an Vokabeln
+     * @return MAX_ANZAHL_VOKABELN Die maximale Anzahl an Vokabeln
      */
     public int getMaxAnzahlVokabeln() {
-        return maxAnzahlVokabeln;
+        return MAX_ANZAHL_VOKABELN;
     }
 
     /**
@@ -301,15 +235,7 @@ public class Testscreen extends JFrame {
      * @param maxAnzahl Die maximale Anzahl an Vokabeln
      */
     public void setMaxAnzahlVokabeln( int maxAnzahl ) {
-        maxAnzahlVokabeln = maxAnzahl;
-    }
-
-    /**
-     * Gibt die maximale Anzahl an Vokabeln pro Spalte zurueck
-     * @return maxAnzahlVokabelnProSpalte Die maximale Anzahl an Vokabeln pro Spalte
-     */
-    public int getMaxAnzahlVokabelnProSpalte() {
-        return maxAnzahlVokabelnProSpalte;
+        MAX_ANZAHL_VOKABELN = maxAnzahl;
     }
 
     /**
@@ -342,22 +268,6 @@ public class Testscreen extends JFrame {
      */
     public TextField[] getInputFieldsR() {
         return inputFieldsR;
-    }
-
-    /**
-     * Gibt die Eingabefelder links in Spalte 2 zurueck
-     * @return inputFieldsL2 Die Eingabefelder links in Spalte 2
-     */
-    public TextField[] getInputFieldsL2() {
-        return inputFieldsL2;
-    }
-
-    /**
-     * Gibt die Eingabefelder rechts der Spalte 2 zurueck
-     * @return inputFieldsR2 Die Eingabefelder rechts in Spalte 2
-     */
-    public TextField[] getInputFieldsR2() {
-        return inputFieldsR2;
     }
 
     /**

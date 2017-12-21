@@ -4,8 +4,8 @@ import java.awt.*;
 public class Results extends JFrame {
 
     // Abmessungen des Fensters
-    private final int BREITE = 800;
-    private final int HOEHE = 600;
+    private final int BREITE = 1024;
+    private final int HOEHE = 768;
     // Ergebnisdaten (ohne Getter)
     private int anzahlKorrekteWoerter;
     private int anzahlFehler;

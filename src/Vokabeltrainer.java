@@ -27,8 +27,6 @@ public class Vokabeltrainer {
 
         // Anzahl der Vokabeln festlegen (germanWords.length == englishWords.length)
         anzahlVokabeln = germanWords.length;
-
-        // System.out.println( "Vokabeltrainer erzeugt" );
     }
 
     /**

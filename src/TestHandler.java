@@ -20,8 +20,6 @@ public class TestHandler implements ActionListener {
             Main.getFenster().getHandler().getTrainer().getTestscreen().getTimer().cancel();
             Main.getFenster().getHandler().getTrainer().getTestscreen().getTimer().purge();
             evaluator = new Evaluator();
-
-            //System.out.println("Abgeben");
         }
     }
 

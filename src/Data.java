@@ -255,7 +255,7 @@ public class Data {
             }
         }
         else {
-            JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Fehlgeschlagen", "Fehler", JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Ung\u00FCltige Eingabe", "Fehler", JOptionPane.ERROR_MESSAGE );
         }
     }
 
@@ -291,7 +291,7 @@ public class Data {
              // Nun ueberschreiben wir die Datei mit allen Eintraegen, die noch vorhanden sind
              BufferedWriter writer = new BufferedWriter( new FileWriter( f, false ) );
              for ( int i = 0; i < vocabs.length; i++ ) {
-                 if ( i != 0 ) writer.newLine();
+                 if ( i != 0 && vocabs[i] != null ) writer.newLine();
                  if ( vocabs[i] != null ) writer.write( vocabs[i] );
              }
              writer.close();
@@ -383,6 +383,7 @@ public class Data {
       * @param s Der Name des neuen Stapels
       */
       public void createList( String s ) {
+          s = s.trim();
           if ( s != null ) s = s.replaceAll( "[^a-zA-Z0-9]", "" );
           if ( ( s != null ) && ( s.length() <= 0 ) ) {
               JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Ung\u00FCltige Eingabe", "Fehler", JOptionPane.ERROR_MESSAGE );
@@ -398,13 +399,17 @@ public class Data {
                   e.printStackTrace();
               }
           }
+          else {
+              JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Ung\u00FCltige Eingabe", "Fehler", JOptionPane.ERROR_MESSAGE );
+          }
       }
 
       /**
        * Loescht einen Stapel
        * @param s Der Name des Stapels, der geloescht werden soll
        */
-      public void deleteList( String s ) {
+       public void deleteList( String s ) {
+           s = s.trim();
           if ( s != null ) s = s.replaceAll( "[^a-zA-Z0-9]", "" );
           if ( ( ( s != null ) && ( s.length() <= 0 ) ) || ( ( s != null ) && s.equals( "default" ) ) ) {
               JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Ung\u00FCltige Eingabe", "Fehler", JOptionPane.ERROR_MESSAGE );
@@ -412,18 +417,23 @@ public class Data {
           else if ( s != null ) {
               try {
                   File f = new File( localPath + path + trennzeichen + s + ".txt" );
-                  if ( f.exists() ) f.delete();
+                  if ( f.exists() ) {
+                      f.delete();
+                      updateLists();
+                      Main.getFenster().getChooseList().removeItem( s );
+                      JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Erfolgreich gel\u00F6scht", "Stapel gel\u00F6scht ", JOptionPane.INFORMATION_MESSAGE );
+                  }
                   else {
                      JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Ung\u00FCltige Eingabe", "Fehler", JOptionPane.ERROR_MESSAGE );
                   }
-                  updateLists();
-                  Main.getFenster().getChooseList().removeItem( s );
-                  JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Erfolgreich gel\u00F6scht", "Stapel gel\u00F6scht ", JOptionPane.INFORMATION_MESSAGE );
                   Main.getFenster().getFrame().repaint();
               }
               catch ( Exception e ) {
                   e.printStackTrace();
               }
+          }
+          else {
+              JOptionPane.showMessageDialog( Main.getFenster().getFrame(), "Ung\u00FCltige Eingabe", "Fehler", JOptionPane.ERROR_MESSAGE );
           }
       }
 
