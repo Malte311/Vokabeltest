@@ -1,0 +1,14 @@
+Auto=car
+Haus=house
+Maus=mouse
+Hund=dog
+Katze=cat
+Baum=tree
+Familie=family
+Löwe=lion
+Tiger=tiger
+Elefant=elefant
+Tisch=table
+Fisch=fish
+Hallo=hello
+Uhr=clock
