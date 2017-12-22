@@ -12,8 +12,8 @@ public class Testscreen extends JFrame {
 
     // Anzahl Vokabeln
     private int anzahlVokabeln;
-    // Maximale Anzahl an Vokabeln
-    private final int MAX_ANZAHL_VOKABELN = 50;
+    // Maximale Anzahl an Vokabeln (mehr passen nicht ins Fenster)
+    private final int MAX_ANZAHL_VOKABELN = 34;
 
     // Abgabebutton
     private JButton abgeben;
@@ -98,17 +98,17 @@ public class Testscreen extends JFrame {
         // Anzahl Vokabeln als Array Laenge
         int arrayLength = anzahlVokabeln;
         // Abmessungen der Felder
-        int inputFieldWidth = 100;
-        int inputFieldHeight = 20;
+        int inputFieldWidth = BREITE/2 - 50;
+        int inputFieldHeight = 40;
         // Label fuer Eingabefelder
-        addLabel( 10, inputFieldWidth, inputFieldHeight );
+        addLabel( inputFieldWidth, inputFieldHeight );
 
         // links (Eingabefelder fuer deutsche Woerter)
         inputFieldsL = new TextField[arrayLength];
         for (int i = 0; i < inputFieldsL.length; i++) {
             inputFieldsL[i] = new TextField();
             add( inputFieldsL[i] );
-            inputFieldsL[i].setBounds( 10, 50 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            inputFieldsL[i].setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
             inputFieldsL[i].setVisible( true );
             // nur jedes zweite Feld als Input
             if ( ( i % 2 ) == 0 ) {
@@ -122,7 +122,7 @@ public class Testscreen extends JFrame {
         for (int j = 0; j < inputFieldsR.length; j++) {
             inputFieldsR[j] = new TextField();
             add( inputFieldsR[j] );
-            inputFieldsR[j].setBounds( BREITE/2, 50 + j * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            inputFieldsR[j].setBounds( BREITE/2, 70 + j * inputFieldHeight, inputFieldWidth, inputFieldHeight );
             inputFieldsR[j].setVisible( true );
             // nur jedes zweite Feld als Input
             if ( ( j % 2 ) == 1 ) {
@@ -130,25 +130,28 @@ public class Testscreen extends JFrame {
                 inputFieldsR[j].setText( englishWords[j] );
             }
         }
+
+        // ScrollPane hinzufuegen
+        JScrollPane jsp = new JScrollPane( this, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+        add( jsp, BorderLayout.CENTER );
     }
 
     /**
      * Fuegt die Label "Deutsch" und "Englisch" hinzu
-     * @param xPos Die x Position des Labels
      * @param inputFieldWidth Die Breite des Labels (identisch zur Breite der Felder)
      * @param inputFieldHeight Die Hoehe des Labels (identisch zur Hoehe der Felder)
      */
-    public void addLabel( int xPos, int inputFieldWidth, int inputFieldHeight ) {
+    public void addLabel( int inputFieldWidth, int inputFieldHeight ) {
         // Deutsch
         JLabel gLabel = new JLabel( "Deutsch" );
         add ( gLabel );
-        gLabel.setBounds( xPos, 50 - inputFieldHeight, inputFieldWidth, inputFieldHeight );
+        gLabel.setBounds( 10, 30, inputFieldWidth, inputFieldHeight );
         gLabel.setVisible( true );
 
         // Englisch
         JLabel eLabel = new JLabel( "Englisch" );
         add ( eLabel );
-        eLabel.setBounds( xPos + 40 + inputFieldWidth, 50 - inputFieldHeight, inputFieldWidth, inputFieldHeight );
+        eLabel.setBounds( BREITE/2, 30, inputFieldWidth, inputFieldHeight );
         eLabel.setVisible( true );
     }
 

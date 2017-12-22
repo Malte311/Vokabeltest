@@ -81,8 +81,8 @@ public class Results extends JFrame {
      */
     public void showSolution( String[] errors, String[] corrections ) {
         // Abmessungen der Felder
-        int inputFieldWidth = 100;
-        int inputFieldHeight = 20;
+        int inputFieldWidth = BREITE/2 - 50;
+        int inputFieldHeight = 40;
 
         TextField temp;
         // Alle Fehler anzeigen

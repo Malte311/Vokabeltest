@@ -66,53 +66,51 @@ public class Evaluator {
      * Prueft, wo Fehler vorhanden sind
      */
     public void evaluate() {
-        // Index fuer Fehler Arrays
         int index = 0;
+        String in;
+        String correct;
+        String[] parts;
+        boolean ger = true;
         for ( int i = 0; i < inputL.length; i++ ) {
-            // Zunaechst zerlegen wir den Input in einzelne Bedeutungen
-            String[] parts;
-            if ( inputL[i].contains( "," ) ) {
-                parts = inputL[i].split( "," );
-            }
-            else if ( inputL[i].contains( ";" ) ) {
-                parts = inputL[i].split( ";" );
+            // Richtiges TextFeld auswaehlen
+            if ( Main.getFenster().getHandler().getTrainer().getTestscreen().getInputFieldsL()[i].isEditable() ) {
+                in = inputL[i];
+                correct = germanWords[i];
+                ger = true;
             }
             else {
-                parts = new String[]{ inputL[i] };
+                in = inputR[i];
+                correct = englishWords[i];
+                ger = false;
             }
+            // Zunaechst zerlegen wir den Input in einzelne Bedeutungen
+            if ( in.contains( "," ) ) {
+                parts = in.split( "," );
+            }
+            else if ( in.contains( ";" ) ) {
+                parts = in.split( ";" );
+            }
+            else {
+                parts = new String[]{ in };
+            }
+
             // Nun durchlaufen wir die einzelnen Bedeutungen
             for ( int j = 0; j < parts.length; j++ ) {
                 // Wenn Input enthalten ist, ist das Wort schonmal korrekt
-                if ( germanWords[i].contains( parts[j] ) && englishWords[i].contains( parts[j] ) ) {
+                if ( !parts[j].equals( "" ) && ger && germanWords[i].contains( parts[j] ) ) {
                     anzahlKorrekteWoerter++;
                     break;
                 }
-                // Moeglicherweise war nur die Gross-/Kleinschreibung unterschiedlich
-                else if ( ( germanWords[i].toLowerCase().contains( parts[j].toLowerCase() ) ) && ( englishWords[i].toLowerCase().contains( parts[j].toLowerCase() ) ) ) {
-                    // Auch das zaehlt noch als korrekt, soll aber als Korrekturvorschlag angegeben werden
+                else if ( !parts[j].equals( "" ) && !ger && englishWords[i].contains( parts[j] ) ) {
                     anzahlKorrekteWoerter++;
-                    if ( Main.getFenster().getHandler().getTrainer().getTestscreen().getInputFieldsL()[i].isEditable() ) {
-                        errors[index] = inputL[i];
-                        corrections[index] = germanWords[i];
-                    }
-                    else {
-                        errors[index] = inputR[i];
-                        corrections[index] = englishWords[i];
-                    }
-                    index++;
                     break;
                 }
+
                 // Ansonsten war die Eingabe leider falsch (wenn alle Bedeutungen durchprobiert wurden)
                 else if ( j == parts.length - 1 ) {
-                    // Herausfinden, ob deutsches Wort oder englisches Wort falsch war
-                    if ( Main.getFenster().getHandler().getTrainer().getTestscreen().getInputFieldsL()[i].isEditable() ) {
-                        errors[index] = inputL[i];
-                        corrections[index] = germanWords[i];
-                    }
-                    else {
-                        errors[index] = inputR[i];
-                        corrections[index] = englishWords[i];
-                    }
+                    errors[index] = in;
+                    corrections[index] = correct;
+                    anzahlFehler++;
                     index++;
                 }
             }
