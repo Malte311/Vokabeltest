@@ -95,7 +95,12 @@ public class Results extends JFrame {
                 temp.setVisible( true );
                 temp.setEditable( false );
                 temp.setForeground( Color.RED );
-                temp.setText( errors[i] );
+                if ( errors[i].equals( "" ) ) {
+                    temp.setText( "-" );
+                }
+                else {
+                    temp.setText( errors[i] );
+                }
                 // Korrektur anzeigen
                 temp = new TextField();
                 add( temp );

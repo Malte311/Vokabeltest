@@ -36,6 +36,8 @@ public class Testscreen extends JFrame {
     // Label, das die Zeit anzeigt
     private JLabel clock;
 
+    private JPanel panel;
+
     /**
      * Setzt die Einstellungen des Fensters
      */
@@ -68,6 +70,11 @@ public class Testscreen extends JFrame {
         shuffleWords();
 
         // Komponenten initialisieren
+        panel = new JPanel();
+        panel.setSize( BREITE, HOEHE );
+        panel.setLayout( new BorderLayout() );
+        panel.setVisible( true );
+
         initButton( 100, 20 );
         initInputFields();
 
@@ -85,7 +92,7 @@ public class Testscreen extends JFrame {
      */
     public void initButton( int width, int height ) {
         abgeben = new JButton( "Abgeben" );
-        add( abgeben );
+        panel.add( abgeben );
         abgeben.setBounds( BREITE / 2 - width / 2, 10, width, height );
         abgeben.setVisible( true );
         abgeben.addActionListener( handler );
@@ -103,11 +110,16 @@ public class Testscreen extends JFrame {
         // Label fuer Eingabefelder
         addLabel( inputFieldWidth, inputFieldHeight );
 
+        // ScrollPane hinzufuegen
+        panel.setPreferredSize( new Dimension( BREITE, HOEHE ) );
+        JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+        jsp.setPreferredSize( new Dimension( BREITE, HOEHE ) );
+
         // links (Eingabefelder fuer deutsche Woerter)
         inputFieldsL = new TextField[arrayLength];
         for (int i = 0; i < inputFieldsL.length; i++) {
             inputFieldsL[i] = new TextField();
-            add( inputFieldsL[i] );
+            panel.add( inputFieldsL[i] );
             inputFieldsL[i].setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
             inputFieldsL[i].setVisible( true );
             // nur jedes zweite Feld als Input
@@ -121,7 +133,7 @@ public class Testscreen extends JFrame {
         inputFieldsR = new TextField[arrayLength];
         for (int j = 0; j < inputFieldsR.length; j++) {
             inputFieldsR[j] = new TextField();
-            add( inputFieldsR[j] );
+            panel.add( inputFieldsR[j] );
             inputFieldsR[j].setBounds( BREITE/2, 70 + j * inputFieldHeight, inputFieldWidth, inputFieldHeight );
             inputFieldsR[j].setVisible( true );
             // nur jedes zweite Feld als Input
@@ -130,10 +142,8 @@ public class Testscreen extends JFrame {
                 inputFieldsR[j].setText( englishWords[j] );
             }
         }
-
-        // ScrollPane hinzufuegen
-        JScrollPane jsp = new JScrollPane( this, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
-        add( jsp, BorderLayout.CENTER );
+        add( jsp );
+        add( panel );
     }
 
     /**
@@ -144,13 +154,13 @@ public class Testscreen extends JFrame {
     public void addLabel( int inputFieldWidth, int inputFieldHeight ) {
         // Deutsch
         JLabel gLabel = new JLabel( "Deutsch" );
-        add ( gLabel );
+        panel.add ( gLabel );
         gLabel.setBounds( 10, 30, inputFieldWidth, inputFieldHeight );
         gLabel.setVisible( true );
 
         // Englisch
         JLabel eLabel = new JLabel( "Englisch" );
-        add ( eLabel );
+        panel.add ( eLabel );
         eLabel.setBounds( BREITE/2, 30, inputFieldWidth, inputFieldHeight );
         eLabel.setVisible( true );
     }
@@ -165,7 +175,7 @@ public class Testscreen extends JFrame {
         clock = new JLabel( String.valueOf( time ) );
         clock.setForeground( Color.RED );
         clock.setFont( clock.getFont().deriveFont(18f) );
-        add( clock );
+        panel.add( clock );
         clock.setBounds( 10, 5, 80, 25 );
         clock.setVisible( true );
         try {
