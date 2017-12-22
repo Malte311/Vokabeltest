@@ -9,14 +9,17 @@ public class Testscreen extends JFrame {
     // Abmessungen des Fensters
     private final int BREITE = 1024;
     private final int HOEHE = 768;
+
     // Anzahl Vokabeln
     private int anzahlVokabeln;
     // Maximale Anzahl an Vokabeln
     private final int MAX_ANZAHL_VOKABELN = 50;
+
     // Abgabebutton
     private JButton abgeben;
     // Listener
     private TestHandler handler;
+
     // Eingabefelder links
     private TextField[] inputFieldsL;
     // Eingabefelder rechts
@@ -25,6 +28,7 @@ public class Testscreen extends JFrame {
     private String[] englishWords;
     // Deutsche Vokabeln
     private String[] germanWords;
+
     // Timer fuer die Zeit
     private Timer timer;
     // Aktuelle Zeitanzeige
@@ -98,37 +102,34 @@ public class Testscreen extends JFrame {
         int inputFieldHeight = 20;
         // Label fuer Eingabefelder
         addLabel( 10, inputFieldWidth, inputFieldHeight );
-        
+
         // links (Eingabefelder fuer deutsche Woerter)
-        links = new TextField[arrayLength];
-        for (int i = 0; i < links.length; i++) {
-            links[i] = new TextField();
-            add( links[i] );
-            links[i].setBounds( 10, 50 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
-            links[i].setVisible( true );
+        inputFieldsL = new TextField[arrayLength];
+        for (int i = 0; i < inputFieldsL.length; i++) {
+            inputFieldsL[i] = new TextField();
+            add( inputFieldsL[i] );
+            inputFieldsL[i].setBounds( 10, 50 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            inputFieldsL[i].setVisible( true );
             // nur jedes zweite Feld als Input
             if ( ( i % 2 ) == 0 ) {
-                links[i].setEditable( false );
-                links[i].setText( germanWords[i] );
+                inputFieldsL[i].setEditable( false );
+                inputFieldsL[i].setText( germanWords[i] );
             }
         }
-        // Daten sichern
-        inputFieldsL = links;
 
         // rechte Seite
-        rechts = new TextField[arrayLength];
-        for (int j = 0; j < rechts.length; j++) {
-            rechts[j] = new TextField();
-            add( rechts[j] );
-            rechts[j].setBounds( 50 + inputFieldWidth, 50 + j * inputFieldHeight, inputFieldWidth, inputFieldHeight );
-            rechts[j].setVisible( true );
+        inputFieldsR = new TextField[arrayLength];
+        for (int j = 0; j < inputFieldsR.length; j++) {
+            inputFieldsR[j] = new TextField();
+            add( inputFieldsR[j] );
+            inputFieldsR[j].setBounds( BREITE/2, 50 + j * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            inputFieldsR[j].setVisible( true );
             // nur jedes zweite Feld als Input
             if ( ( j % 2 ) == 1 ) {
-                rechts[j].setEditable( false );
-                rechts[j].setText( englishWords[j] );
+                inputFieldsR[j].setEditable( false );
+                inputFieldsR[j].setText( englishWords[j] );
             }
         }
-        inputFieldsR = rechts;
     }
 
     /**
@@ -228,14 +229,6 @@ public class Testscreen extends JFrame {
      */
     public int getMaxAnzahlVokabeln() {
         return MAX_ANZAHL_VOKABELN;
-    }
-
-    /**
-     * Setzt die maximale Anzahl an Vokabeln
-     * @param maxAnzahl Die maximale Anzahl an Vokabeln
-     */
-    public void setMaxAnzahlVokabeln( int maxAnzahl ) {
-        MAX_ANZAHL_VOKABELN = maxAnzahl;
     }
 
     /**

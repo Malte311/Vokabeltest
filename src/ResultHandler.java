@@ -16,8 +16,6 @@ public class ResultHandler implements ActionListener {
             Main.getFenster().getFrame().setVisible( true );
             Main.getFenster().getFrame().repaint();
             Main.getFenster().getHandler().getTrainer().getTestscreen().getHandler().getEvaluator().getResults().dispose();
-
-            // System.out.println("Zurueck zum Hauptmenue");
         }
     }
 }
