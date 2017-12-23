@@ -148,13 +148,15 @@ public class Data {
                      * Dabei gehen wir davon aus, dass die Teile durch das Gleichheitszeichen (=) getrennt sind
                      * und pro Zeile genau ein deutscher sowie ein englischer Teil existieren
                      */
-                    String[] s = line.trim().split( "=" );
-                    germanWords[counter] = s[0];
-                    englishWords[counter] = s[1];
+                     if ( line.trim().contains( "=" ) ) {
+                         String[] s = line.trim().split( "=" );
 
-                    counter++;
+                         germanWords[counter] = s[0];
+                         englishWords[counter] = s[1];
+
+                         counter++;
+                     }
                 }
-
             }
             catch ( Exception e ) {
                 System.out.println( e );
@@ -204,6 +206,8 @@ public class Data {
         // Unnoetige Leerzeichen entfernen
         german = german.trim();
         english = english.trim();
+        german = german.replaceAll( "[=]", "" );
+        english = english.replaceAll( "[=]", "" );
         // Eintrag zusammenbasteln
         String entry = german + "=" + english;
         // Sofern etwas eingegeben wurde, tragen wir es ein
@@ -234,7 +238,7 @@ public class Data {
                     // In Textdatei eintragen
                     File f = new File( localPath + path + trennzeichen + ( (String) Main.getFenster().getChooseList().getSelectedItem() ) + ".txt" );
                     BufferedWriter writer = new BufferedWriter( new FileWriter( f, true ) );
-                    writer.newLine();
+                    if ( f.length() > 0 ) writer.newLine();
                     writer.write( entry );
                     writer.close();
                     // Benachrichtigung bei erfolgreichem Eintrag

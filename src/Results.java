@@ -54,12 +54,70 @@ public class Results extends JFrame {
         anzahlKorrekt.setBounds( 10, 10, 180, 25 );
         anzahlKorrekt.setForeground( Color.GREEN );
         anzahlKorrekt.setVisible( true );
+
         anzahlFalsch = new JLabel( "Anzahl falsche W\u00F6rter: " + anzahlFehler );
         add( anzahlFalsch );
         anzahlFalsch.setBounds( 10, 40, 180, 25 );
         anzahlFalsch.setForeground( Color.RED );
         anzahlFalsch.setVisible( true );
+
+        JLabel prozent = new JLabel( "Note: " + String.valueOf( calculateGrade( getProzent() ) ) + " (" + String.valueOf( (int)getProzent() ) + "%)" );
+        add( prozent );
+        prozent.setBounds( 200, 25, 180, 25 );
+        prozent.setForeground( Color.BLUE );
+        prozent.setVisible( true );
     }
+
+    /**
+     * Ermittelt die Prozentangabe der richtigen Eingaben
+     * @return die Prozentangabe
+     */
+     private double getProzent() {
+         double dec = (double)anzahlKorrekteWoerter / (double)Main.getFenster().getHandler().getTrainer().getTestscreen().getAnzahlVokabeln();
+         dec = Math.round( (dec * 100.0) );
+         return dec;
+     }
+
+     /**
+      * Berechnet die Note anhand der Prozentzahl
+      * @param percent Die Prozentzahl
+      * @return die Note
+      */
+     private double calculateGrade( double percent ) {
+         if ( percent >= 95.0 ) {
+             return 1.0;
+         }
+         else if ( percent >= 90.0 ) {
+             return 1.3;
+         }
+         else if ( percent >= 85.0 ) {
+             return 1.7;
+         }
+         else if ( percent >= 80.0 ) {
+             return 2.0;
+         }
+         else if ( percent >= 75.0 ) {
+             return 2.3;
+         }
+         else if ( percent >= 70.0 ) {
+             return 2.7;
+         }
+         else if ( percent >= 65.0 ) {
+             return 3.0;
+         }
+         else if ( percent >= 60.0 ) {
+             return 3.3;
+         }
+         else if ( percent >= 55.0 ) {
+             return 3.7;
+         }
+         else if ( percent >= 50.0 ) {
+             return 4.0;
+         }
+         else {
+             return 5.0;
+         }
+     }
 
     /**
      * Initialisiert den Button zum Zurueckkehren
@@ -81,7 +139,7 @@ public class Results extends JFrame {
      */
     public void showSolution( String[] errors, String[] corrections ) {
         // Abmessungen der Felder
-        int inputFieldWidth = BREITE/2 - 10;
+        int inputFieldWidth = BREITE/2 - 20;
         int inputFieldHeight = 30;
 
         JTextField temp;
@@ -91,7 +149,7 @@ public class Results extends JFrame {
             add( temp );
             if ( errors[i] != null && corrections[i] != null ) {
                 // Fehler anzeigen
-                temp.setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+                temp.setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth + 10, inputFieldHeight );
                 temp.setHorizontalAlignment( JTextField.CENTER );
                 temp.setFont( temp.getFont().deriveFont(18f) );
                 temp.setVisible( true );

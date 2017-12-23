@@ -13,7 +13,7 @@ public class Testscreen extends JFrame {
     // Anzahl Vokabeln
     private int anzahlVokabeln;
     // Maximale Anzahl an Vokabeln (mehr passen nicht ins Fenster)
-    private final int MAX_ANZAHL_VOKABELN = 34;
+    private final int MAX_ANZAHL_VOKABELN = 22;
 
     // Abgabebutton
     private JButton abgeben;
@@ -35,7 +35,7 @@ public class Testscreen extends JFrame {
     private int time;
     // Label, das die Zeit anzeigt
     private JLabel clock;
-
+    // Speichert alle weiteren Komponenten (dient als Container)
     private JPanel panel;
 
     /**
@@ -71,11 +71,10 @@ public class Testscreen extends JFrame {
 
         // Komponenten initialisieren
         panel = new JPanel();
-        panel.setPreferredSize( new Dimension( BREITE, HOEHE ) );
-        panel.setBounds( 0, 0, BREITE, HOEHE );
         panel.setLayout( null );
+        panel.setPreferredSize( new Dimension( BREITE, HOEHE ) );
 
-        initButton( 100, 20 );
+        initButton( 120, 25 );
         initInputFields();
 
         // Test beginnen
@@ -93,6 +92,7 @@ public class Testscreen extends JFrame {
     public void initButton( int width, int height ) {
         abgeben = new JButton( "Abgeben" );
         panel.add( abgeben );
+        abgeben.setBackground( new Color( 175, 238, 238 ) );
         abgeben.setBounds( BREITE / 2 - width / 2, 10, width, height );
         abgeben.setVisible( true );
         abgeben.addActionListener( handler );
@@ -105,7 +105,7 @@ public class Testscreen extends JFrame {
         // Anzahl Vokabeln als Array Laenge
         int arrayLength = anzahlVokabeln;
         // Abmessungen der Felder
-        int inputFieldWidth = BREITE/2 - 10;
+        int inputFieldWidth = BREITE/2 - 20;
         int inputFieldHeight = 30;
         // Label fuer Eingabefelder
         addLabel( inputFieldWidth, inputFieldHeight );
@@ -115,7 +115,7 @@ public class Testscreen extends JFrame {
         for (int i = 0; i < inputFieldsL.length; i++) {
             inputFieldsL[i] = new JTextField();
             panel.add( inputFieldsL[i] );
-            inputFieldsL[i].setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            inputFieldsL[i].setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth + 10, inputFieldHeight );
             inputFieldsL[i].setHorizontalAlignment( JTextField.CENTER );
             inputFieldsL[i].setFont( inputFieldsL[i].getFont().deriveFont(18f) );
             inputFieldsL[i].setVisible( true );
@@ -142,10 +142,11 @@ public class Testscreen extends JFrame {
             }
         }
         // ScrollPane hinzufuegen
+
         JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
         add( jsp );
         add( panel );
-        panel.setPreferredSize( new Dimension( BREITE, HOEHE ) );
+        panel.setSize( new Dimension( BREITE, HOEHE ) );
         panel.setVisible( true );
     }
 
@@ -158,12 +159,14 @@ public class Testscreen extends JFrame {
         // Deutsch
         JLabel gLabel = new JLabel( "Deutsch" );
         panel.add ( gLabel );
+        gLabel.setFont( gLabel.getFont().deriveFont(18f) );
         gLabel.setBounds( 10, 30, inputFieldWidth, inputFieldHeight );
         gLabel.setVisible( true );
 
         // Englisch
         JLabel eLabel = new JLabel( "Englisch" );
         panel.add ( eLabel );
+        eLabel.setFont( eLabel.getFont().deriveFont(18f) );
         eLabel.setBounds( BREITE/2, 30, inputFieldWidth, inputFieldHeight );
         eLabel.setVisible( true );
     }
@@ -247,6 +250,13 @@ public class Testscreen extends JFrame {
         return MAX_ANZAHL_VOKABELN;
     }
 
+    /**
+     * Gibt die tatsaechliche Anzahl an Vokabeln zurueck
+     * @return anzahlVokabeln Die Anzahl an Vokabeln
+     */
+    public int getAnzahlVokabeln() {
+        return anzahlVokabeln;
+    }
     /**
      * Gibt den Abgabebutton zurueck
      * @return abgeben Der Abgabebutton
