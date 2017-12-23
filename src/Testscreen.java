@@ -13,7 +13,7 @@ public class Testscreen extends JFrame {
     // Anzahl Vokabeln
     private int anzahlVokabeln;
     // Maximale Anzahl an Vokabeln (mehr passen nicht ins Fenster)
-    private final int MAX_ANZAHL_VOKABELN = 22;
+    private final int MAX_ANZAHL_VOKABELN = 50;
 
     // Abgabebutton
     private JButton abgeben;
@@ -48,7 +48,7 @@ public class Testscreen extends JFrame {
         setSize( BREITE, HOEHE );
         setResizable( false );
         setLocationRelativeTo( Main.getFenster().getFrame() );
-        setLayout( null );
+        setLayout( new BorderLayout() );
         setVisible( true );
         Main.getFenster().getFrame().setVisible( false );
 
@@ -72,7 +72,9 @@ public class Testscreen extends JFrame {
         // Komponenten initialisieren
         panel = new JPanel();
         panel.setLayout( null );
-        panel.setPreferredSize( new Dimension( BREITE, HOEHE ) );
+        panel.setLocation( 0, 0 );
+        int newHeight = anzahlVokabeln * 30 + 100;
+        panel.setPreferredSize( new Dimension( BREITE, newHeight ) );
 
         initButton( 120, 25 );
         initInputFields();
@@ -142,12 +144,8 @@ public class Testscreen extends JFrame {
             }
         }
         // ScrollPane hinzufuegen
-
         JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
-        add( jsp );
-        add( panel );
-        panel.setSize( new Dimension( BREITE, HOEHE ) );
-        panel.setVisible( true );
+        add( jsp, BorderLayout.CENTER );
     }
 
     /**

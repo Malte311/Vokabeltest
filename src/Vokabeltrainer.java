@@ -1,3 +1,7 @@
+import java.awt.*;
+
+import javax.swing.*;
+
 public class Vokabeltrainer {
 
     // Speichert die Anzahl der Vokabeln fuer einen Test

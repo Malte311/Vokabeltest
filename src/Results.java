@@ -13,6 +13,8 @@ public class Results extends JFrame {
     private String[] errors;
     private String[] corrections;
 
+    // Panel, dass als Container fungiert
+    private JPanel panel;
     // Label
     private JLabel anzahlKorrekt;
     private JLabel anzahlFalsch;
@@ -28,7 +30,7 @@ public class Results extends JFrame {
         setSize( BREITE, HOEHE );
         setResizable( false );
         setLocationRelativeTo( Main.getFenster().getHandler().getTrainer().getTestscreen() );
-        setLayout( null );
+        setLayout( new BorderLayout() );
         setVisible( true );
 
         // Daten holen
@@ -38,11 +40,24 @@ public class Results extends JFrame {
         this.corrections = corrections;
 
         // Komponenten initialisieren
+        panel = new JPanel();
+        panel.setLayout( null );
+        panel.setLocation( 0, 0 );
+        // ermittelt die Hoehe des Panels
+        int newHeight = 0;
+        for ( int i = 0; i < errors.length; i++ ) {
+            if ( errors[i] != null  ) newHeight++;
+        }
+        newHeight = newHeight * 30 + 100;
+        panel.setPreferredSize( new Dimension( BREITE, newHeight ) );
+
         initLabel();
         initButton();
 
         // Korrekte Loesungen von falschen Vokabeln anzeigen
         showSolution( errors, corrections );
+
+        repaint();
     }
 
     /**
@@ -50,19 +65,19 @@ public class Results extends JFrame {
      */
     public void initLabel() {
         anzahlKorrekt = new JLabel( "Anzahl korrekte W\u00F6rter: " + anzahlKorrekteWoerter );
-        add( anzahlKorrekt );
+        panel.add( anzahlKorrekt );
         anzahlKorrekt.setBounds( 10, 10, 180, 25 );
         anzahlKorrekt.setForeground( Color.GREEN );
         anzahlKorrekt.setVisible( true );
 
         anzahlFalsch = new JLabel( "Anzahl falsche W\u00F6rter: " + anzahlFehler );
-        add( anzahlFalsch );
+        panel.add( anzahlFalsch );
         anzahlFalsch.setBounds( 10, 40, 180, 25 );
         anzahlFalsch.setForeground( Color.RED );
         anzahlFalsch.setVisible( true );
 
         JLabel prozent = new JLabel( "Note: " + String.valueOf( calculateGrade( getProzent() ) ) + " (" + String.valueOf( (int)getProzent() ) + "%)" );
-        add( prozent );
+        panel.add( prozent );
         prozent.setBounds( 200, 25, 180, 25 );
         prozent.setForeground( Color.BLUE );
         prozent.setVisible( true );
@@ -124,7 +139,7 @@ public class Results extends JFrame {
      */
     public void initButton() {
         backToMainMenu = new JButton( "Hauptmen\u00FC" );
-        add( backToMainMenu );
+        panel.add( backToMainMenu );
         backToMainMenu.setBounds( BREITE / 2 - 60, 10, 120, 25 );
         backToMainMenu.setBackground( new Color( 175, 238, 238 ) );
         backToMainMenu.setVisible( true );
@@ -146,7 +161,7 @@ public class Results extends JFrame {
         // Alle Fehler anzeigen
         for ( int i = 0; i < errors.length; i++ ) {
             temp = new JTextField();
-            add( temp );
+            panel.add( temp );
             if ( errors[i] != null && corrections[i] != null ) {
                 // Fehler anzeigen
                 temp.setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth + 10, inputFieldHeight );
@@ -163,7 +178,7 @@ public class Results extends JFrame {
                 }
                 // Korrektur anzeigen
                 temp = new JTextField();
-                add( temp );
+                panel.add( temp );
                 temp.setBounds( BREITE/2, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
                 temp.setHorizontalAlignment( JTextField.CENTER );
                 temp.setFont( temp.getFont().deriveFont(18f) );
@@ -173,6 +188,8 @@ public class Results extends JFrame {
                 temp.setText( corrections[i] );
             }
         }
+        JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+        add( jsp, BorderLayout.CENTER );
     }
 
     /**

@@ -1,8 +1,6 @@
 import java.io.*;
 import java.awt.*;
 import javax.swing.*;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Data {
 
@@ -19,8 +17,6 @@ public class Data {
     private String[] germanWords;
     // Speichert die englischen Woerter
     private String[] englishWords;
-    // Der Timer fuer Benachrichtigungen
-    private Timer timer;
 
     public Data() {
         // Trennzeichen abhaengig vom Betriebssystem waehlen
@@ -495,14 +491,6 @@ public class Data {
      */
     public String[] getEnglishWords() {
         return englishWords;
-    }
-
-    /**
-     * Gibt den Timer fuer Benachrichtigungen zurueck
-     * @return timer Der Timer fuer Benachrichtigungen
-     */
-    public Timer getTimer() {
-        return timer;
     }
 
     /**
