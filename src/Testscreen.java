@@ -21,9 +21,9 @@ public class Testscreen extends JFrame {
     private TestHandler handler;
 
     // Eingabefelder links
-    private TextField[] inputFieldsL;
+    private JTextField[] inputFieldsL;
     // Eingabefelder rechts
-    private TextField[] inputFieldsR;
+    private JTextField[] inputFieldsR;
     // Englische Vokabeln
     private String[] englishWords;
     // Deutsche Vokabeln
@@ -71,9 +71,9 @@ public class Testscreen extends JFrame {
 
         // Komponenten initialisieren
         panel = new JPanel();
-        panel.setSize( BREITE, HOEHE );
-        panel.setLayout( new BorderLayout() );
-        panel.setVisible( true );
+        panel.setPreferredSize( new Dimension( BREITE, HOEHE ) );
+        panel.setBounds( 0, 0, BREITE, HOEHE );
+        panel.setLayout( null );
 
         initButton( 100, 20 );
         initInputFields();
@@ -105,22 +105,19 @@ public class Testscreen extends JFrame {
         // Anzahl Vokabeln als Array Laenge
         int arrayLength = anzahlVokabeln;
         // Abmessungen der Felder
-        int inputFieldWidth = BREITE/2 - 50;
-        int inputFieldHeight = 40;
+        int inputFieldWidth = BREITE/2 - 10;
+        int inputFieldHeight = 30;
         // Label fuer Eingabefelder
         addLabel( inputFieldWidth, inputFieldHeight );
 
-        // ScrollPane hinzufuegen
-        panel.setPreferredSize( new Dimension( BREITE, HOEHE ) );
-        JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
-        jsp.setPreferredSize( new Dimension( BREITE, HOEHE ) );
-
         // links (Eingabefelder fuer deutsche Woerter)
-        inputFieldsL = new TextField[arrayLength];
+        inputFieldsL = new JTextField[arrayLength];
         for (int i = 0; i < inputFieldsL.length; i++) {
-            inputFieldsL[i] = new TextField();
+            inputFieldsL[i] = new JTextField();
             panel.add( inputFieldsL[i] );
             inputFieldsL[i].setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            inputFieldsL[i].setHorizontalAlignment( JTextField.CENTER );
+            inputFieldsL[i].setFont( inputFieldsL[i].getFont().deriveFont(18f) );
             inputFieldsL[i].setVisible( true );
             // nur jedes zweite Feld als Input
             if ( ( i % 2 ) == 0 ) {
@@ -130,11 +127,13 @@ public class Testscreen extends JFrame {
         }
 
         // rechte Seite
-        inputFieldsR = new TextField[arrayLength];
+        inputFieldsR = new JTextField[arrayLength];
         for (int j = 0; j < inputFieldsR.length; j++) {
-            inputFieldsR[j] = new TextField();
+            inputFieldsR[j] = new JTextField();
             panel.add( inputFieldsR[j] );
             inputFieldsR[j].setBounds( BREITE/2, 70 + j * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+            inputFieldsR[j].setHorizontalAlignment( JTextField.CENTER );
+            inputFieldsR[j].setFont( inputFieldsR[j].getFont().deriveFont(18f) );
             inputFieldsR[j].setVisible( true );
             // nur jedes zweite Feld als Input
             if ( ( j % 2 ) == 1 ) {
@@ -142,8 +141,12 @@ public class Testscreen extends JFrame {
                 inputFieldsR[j].setText( englishWords[j] );
             }
         }
+        // ScrollPane hinzufuegen
+        JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
         add( jsp );
         add( panel );
+        panel.setPreferredSize( new Dimension( BREITE, HOEHE ) );
+        panel.setVisible( true );
     }
 
     /**
@@ -175,8 +178,8 @@ public class Testscreen extends JFrame {
         clock = new JLabel( String.valueOf( time ) );
         clock.setForeground( Color.RED );
         clock.setFont( clock.getFont().deriveFont(18f) );
-        panel.add( clock );
         clock.setBounds( 10, 5, 80, 25 );
+        panel.add( clock );
         clock.setVisible( true );
         try {
             timer = new Timer();
@@ -264,7 +267,7 @@ public class Testscreen extends JFrame {
      * Gibt die Eingabefelder links zurueck
      * @return inputFieldsL Die Eingabefelder links
      */
-    public TextField[] getInputFieldsL() {
+    public JTextField[] getInputFieldsL() {
         return inputFieldsL;
     }
 
@@ -272,7 +275,7 @@ public class Testscreen extends JFrame {
      * Gibt die Eingabefelder rechts zurueck
      * @return inputFieldsR Die Eingabefelder rechts
      */
-    public TextField[] getInputFieldsR() {
+    public JTextField[] getInputFieldsR() {
         return inputFieldsR;
     }
 

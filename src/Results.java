@@ -81,17 +81,19 @@ public class Results extends JFrame {
      */
     public void showSolution( String[] errors, String[] corrections ) {
         // Abmessungen der Felder
-        int inputFieldWidth = BREITE/2 - 50;
-        int inputFieldHeight = 40;
+        int inputFieldWidth = BREITE/2 - 10;
+        int inputFieldHeight = 30;
 
-        TextField temp;
+        JTextField temp;
         // Alle Fehler anzeigen
         for ( int i = 0; i < errors.length; i++ ) {
-            temp = new TextField();
+            temp = new JTextField();
             add( temp );
             if ( errors[i] != null && corrections[i] != null ) {
                 // Fehler anzeigen
                 temp.setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+                temp.setHorizontalAlignment( JTextField.CENTER );
+                temp.setFont( temp.getFont().deriveFont(18f) );
                 temp.setVisible( true );
                 temp.setEditable( false );
                 temp.setForeground( Color.RED );
@@ -102,9 +104,11 @@ public class Results extends JFrame {
                     temp.setText( errors[i] );
                 }
                 // Korrektur anzeigen
-                temp = new TextField();
+                temp = new JTextField();
                 add( temp );
                 temp.setBounds( BREITE/2, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+                temp.setHorizontalAlignment( JTextField.CENTER );
+                temp.setFont( temp.getFont().deriveFont(18f) );
                 temp.setVisible( true );
                 temp.setEditable( false );
                 temp.setForeground( Color.GREEN );

@@ -1,4 +1,5 @@
 import java.awt.*;
+import javax.swing.*;
 
 public class Evaluator {
 
@@ -40,7 +41,7 @@ public class Evaluator {
      */
     public void getInput() {
         // linke Spalte
-        TextField[] arr = Main.getFenster().getHandler().getTrainer().getTestscreen().getInputFieldsL();
+        JTextField[] arr = Main.getFenster().getHandler().getTrainer().getTestscreen().getInputFieldsL();
         if ( arr != null ) {
             inputL = new String[arr.length];
             for ( int i = 0; i < arr.length; i++ ) {
