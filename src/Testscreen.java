@@ -71,6 +71,7 @@ public class Testscreen extends JFrame {
 
         // Komponenten initialisieren
         panel = new JPanel();
+        //panel.setBackground( new Color( 102, 204, 255 ) );
         panel.setLayout( null );
         panel.setLocation( 0, 0 );
         int newHeight = anzahlVokabeln * 30 + 100;
@@ -125,6 +126,7 @@ public class Testscreen extends JFrame {
             if ( ( i % 2 ) == 0 ) {
                 inputFieldsL[i].setEditable( false );
                 inputFieldsL[i].setText( germanWords[i] );
+                inputFieldsL[i].setBackground( Color.GRAY );
             }
         }
 
@@ -141,6 +143,7 @@ public class Testscreen extends JFrame {
             if ( ( j % 2 ) == 1 ) {
                 inputFieldsR[j].setEditable( false );
                 inputFieldsR[j].setText( englishWords[j] );
+                inputFieldsR[j].setBackground( Color.GRAY );
             }
         }
         // ScrollPane hinzufuegen
@@ -175,7 +178,7 @@ public class Testscreen extends JFrame {
     public void startTimer() {
         // 7 Minuten Zeit ( 7*60 Sekunden = 420 Sekunden )
         // Faengt bei 421 an, damit wir bei 0 aufhoeren koennen
-        time = 421;
+        time = 10;
         clock = new JLabel( String.valueOf( time ) );
         clock.setForeground( Color.RED );
         clock.setFont( clock.getFont().deriveFont(18f) );
@@ -189,7 +192,7 @@ public class Testscreen extends JFrame {
                 public void run() {
                     time--;
                     paintTime( time );
-                    if ( time <= 0 ) abgeben.doClick();
+                    if ( time <= 0 ) handler.startEvaluator();
                 }
             }, 0, 1000 );
         }

@@ -5,10 +5,6 @@ public class TestHandler implements ActionListener {
     // Bewerter
     private Evaluator evaluator;
 
-    public TestHandler() {
-
-    }
-
     /**
      * Wird ausgefuhert, wenn ein Ereignis aufritt
      * @param e Das aufgetretene Ereignis
@@ -16,11 +12,18 @@ public class TestHandler implements ActionListener {
     public void actionPerformed ( ActionEvent e ) {
         // Abgeben Button gedrueckt
         if ( e.getSource() == Main.getFenster().getHandler().getTrainer().getTestscreen().getAbgeben() ) {
-            // Timer beenden und Bewertung anzeigen
-            Main.getFenster().getHandler().getTrainer().getTestscreen().getTimer().cancel();
-            Main.getFenster().getHandler().getTrainer().getTestscreen().getTimer().purge();
-            evaluator = new Evaluator();
+            startEvaluator();
         }
+    }
+
+    /**
+     * Wird ausgefuhert, wenn der Test vorbei ist und startet die Bewertung
+     */
+    public void startEvaluator() {
+        // Timer beenden und Bewertung anzeigen
+        Main.getFenster().getHandler().getTrainer().getTestscreen().getTimer().cancel();
+        Main.getFenster().getHandler().getTrainer().getTestscreen().getTimer().purge();
+        evaluator = new Evaluator();
     }
 
     /**

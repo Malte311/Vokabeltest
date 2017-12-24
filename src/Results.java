@@ -41,6 +41,7 @@ public class Results extends JFrame {
 
         // Komponenten initialisieren
         panel = new JPanel();
+        //panel.setBackground( new Color( 102, 204, 255 ) );
         panel.setLayout( null );
         panel.setLocation( 0, 0 );
         // ermittelt die Hoehe des Panels
@@ -50,7 +51,6 @@ public class Results extends JFrame {
         }
         newHeight = newHeight * 30 + 100;
         panel.setPreferredSize( new Dimension( BREITE, newHeight ) );
-
         initLabel();
         initButton();
 
@@ -190,6 +190,7 @@ public class Results extends JFrame {
         }
         JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
         add( jsp, BorderLayout.CENTER );
+        jsp.setVisible( true );
     }
 
     /**

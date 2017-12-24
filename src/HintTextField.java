@@ -1,5 +1,6 @@
 /**
  * source: https://stackoverflow.com/questions/1738966/java-jtextfield-with-input-hint
+ * Repraesentiert ein Textfeld, das einen default-Text nur anzeigt, solange es keinen Fokus hat 
  */
 
 import java.awt.*;

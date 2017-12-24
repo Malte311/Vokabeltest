@@ -47,12 +47,12 @@ public class Fenster {
 
         // Frame settings
         frame = new JFrame( "Vokabeltrainer" );
+        frame.getContentPane().setBackground( new Color( 102, 204, 255 ) );
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         frame.setSize( BREITE, HOEHE );
         frame.setResizable( false );
         frame.setLocationRelativeTo( null );
         frame.setLayout( null );
-        frame.setBackground( new Color( 100, 149, 237 ) );
         frame.setVisible( true );
 
         // Neuen Listener erzeugen
@@ -130,7 +130,7 @@ public class Fenster {
         data = new Data();
         data.updateLists();
 
-        // Nun initialisieren wir restlichen Komponenten
+        // Nun initialisieren wir die restlichen Komponenten
         this.init( frame );
 
         // Neuzeichnen, nachdem Daten geladen wurden

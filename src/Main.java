@@ -4,7 +4,7 @@ public class Main {
     private static Fenster f;
 
     /**
-     * Erzeugt ein neues Fenster-Objekt
+     * Erzeugt ein neues Fenster-Objekt und startet damit das Programm
      */
     public static void main( String[] args ) {
         f = new Fenster();
