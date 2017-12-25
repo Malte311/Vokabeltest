@@ -57,7 +57,7 @@ public class Results extends JFrame {
         // Korrekte Loesungen von falschen Vokabeln anzeigen
         showSolution( errors, corrections );
 
-        repaint();
+        validate();
     }
 
     /**

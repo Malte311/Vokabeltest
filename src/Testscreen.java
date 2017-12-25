@@ -178,7 +178,7 @@ public class Testscreen extends JFrame {
     public void startTimer() {
         // 7 Minuten Zeit ( 7*60 Sekunden = 420 Sekunden )
         // Faengt bei 421 an, damit wir bei 0 aufhoeren koennen
-        time = 10;
+        time = 421;
         clock = new JLabel( String.valueOf( time ) );
         clock.setForeground( Color.RED );
         clock.setFont( clock.getFont().deriveFont(18f) );
