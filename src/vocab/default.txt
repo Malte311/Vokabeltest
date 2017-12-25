@@ -5,7 +5,6 @@ Hund=dog
 Katze=cat
 Baum=tree
 Familie=family
-Löwe=lion
 Tiger=tiger
 Elefant=elefant
 Tisch=table

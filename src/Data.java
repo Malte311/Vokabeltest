@@ -52,6 +52,9 @@ public class Data {
                 e.printStackTrace();
             }
         }
+        if ( !( new File( localPath + path + trennzeichen + "default.txt" ).length() > 0 ) ) {
+            fillDefault();
+        }
 
         // Liste der Dateien in dem Array lists speichern
         try {
@@ -69,6 +72,42 @@ public class Data {
          */
         for ( int i = 0; i < lists.length; i++ ) {
             lists[i] = lists[i].substring( 0, lists[i].lastIndexOf(46) );
+        }
+    }
+
+    /**
+     * Fuellt die default.txt Datei mit einigen Beispielvokabeln
+     */
+    public void fillDefault() {
+        try {
+            // Die Standardvokabeln
+            String[] vocabs =
+            {
+                "Auto=car",
+                "Haus=house",
+                "Maus=mouse",
+                "Hund=dog",
+                "Katze=cat",
+                "Baum=tree",
+                "Familie=family",
+                "Tiger=tiger",
+                "Elefant=elefant",
+                "Tisch=table",
+                "Fisch=fish",
+                "Hallo=hello",
+                "Uhr=clock"
+            };
+            File f = new File( localPath + path + trennzeichen + "default.txt" );
+            BufferedWriter writer = new BufferedWriter( new FileWriter( f, true ) );
+            // Standardvokabeln reinschreiben
+            for ( int i = 0; i < vocabs.length; i++ ) {
+                if ( i > 0 ) writer.newLine();
+                writer.write( vocabs[i] );
+            }
+            writer.close();
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
         }
     }
 
