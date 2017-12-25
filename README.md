@@ -19,6 +19,7 @@ Ist dies erledigt, kann wie folgt vorgegangen werden:
 - In den Ordner `/src` navigieren
 - Den Befehl `javac *.java` eingeben (dieser kompiliert die `.java`-Quelldateien und erzeugt `.class`-Dateien).
 - Nun kann das Programm über die Konsole mittels `java Main` gestartet werden. Um das Programm auf diese Weise starten zu können, müssen die `.class`-Dateien vorhanden sein.
+
 Alternativ kann nach dem Kompilieren auch eine `.jar`-Datei erzeugt werden, die per Doppelklick gestartet werden kann: 
 - Das Terminal öffnen
 - In den Ordner `/src` navigieren
