@@ -85,6 +85,7 @@ public class Testscreen extends JFrame {
 
         // Neu zeichnen
         repaint();
+        validate();
     }
 
     /**
@@ -212,11 +213,13 @@ public class Testscreen extends JFrame {
             output = minutes + ":" + "0" + seconds;
             clock.setText( output );
             repaint();
+            validate();
         }
         else {
             output = minutes + ":" + seconds;
             clock.setText( output );
             repaint();
+            validate();
         }
     }
 

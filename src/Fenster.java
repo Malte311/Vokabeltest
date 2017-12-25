@@ -135,6 +135,7 @@ public class Fenster {
 
         // Neuzeichnen, nachdem Daten geladen wurden
         frame.repaint();
+        frame.validate();
     }
 
     /**

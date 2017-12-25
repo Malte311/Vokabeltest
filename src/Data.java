@@ -48,7 +48,6 @@ public class Data {
                 createNewTxT( "default" );
             }
             catch( Exception e ) {
-                System.out.println( e );
                 e.printStackTrace();
             }
         }
@@ -60,18 +59,30 @@ public class Data {
         try {
             // File Objekt zum Ordner der Stapel
             File f = new File( localPath + path );
-            lists = f.list();
+            String[] tmp = f.list();
+            int count = 0;
+            for ( int i = 0; i < tmp.length; i++ ) {
+                if ( tmp[i].endsWith( ".txt" ) ) {
+                    count++;
+                }
+            }
+            lists = new String[count];
+            int index = 0;
+            for ( int i = 0; i < tmp.length; i++ ) {
+                if ( tmp[i].endsWith( ".txt" ) ) {
+                    lists[index] = tmp[i];
+                    index++;
+                }
+            }
+            /* Dateiendungen entfernen (wir gehen davon aus, dass nur .txt Dateien vorhanden sind)
+             * 46 steht fuer den Punkt (.) in ASCII
+             */
+            for ( int i = 0; i < lists.length; i++ ) {
+                lists[i] = lists[i].substring( 0, lists[i].lastIndexOf(46) );
+            }
         }
         catch( Exception e ) {
-            System.out.println( e );
             e.printStackTrace();
-        }
-
-        /* Dateiendungen entfernen (wir gehen davon aus, dass nur .txt Dateien vorhanden sind)
-         * 46 steht fuer den Punkt (.) in ASCII
-         */
-        for ( int i = 0; i < lists.length; i++ ) {
-            lists[i] = lists[i].substring( 0, lists[i].lastIndexOf(46) );
         }
     }
 
