@@ -41,7 +41,7 @@ public class Results extends JFrame {
 
         // Komponenten initialisieren
         panel = new JPanel();
-        //panel.setBackground( new Color( 102, 204, 255 ) );
+        panel.setBackground( new Color( 102, 204, 255 ) );
         panel.setLayout( null );
         panel.setLocation( 0, 0 );
         // ermittelt die Hoehe des Panels
@@ -67,13 +67,13 @@ public class Results extends JFrame {
         anzahlKorrekt = new JLabel( "Anzahl korrekte W\u00F6rter: " + anzahlKorrekteWoerter );
         panel.add( anzahlKorrekt );
         anzahlKorrekt.setBounds( 10, 10, 180, 25 );
-        anzahlKorrekt.setForeground( Color.GREEN );
+        anzahlKorrekt.setForeground( Color.BLACK );
         anzahlKorrekt.setVisible( true );
 
         anzahlFalsch = new JLabel( "Anzahl falsche W\u00F6rter: " + anzahlFehler );
         panel.add( anzahlFalsch );
         anzahlFalsch.setBounds( 10, 40, 180, 25 );
-        anzahlFalsch.setForeground( Color.RED );
+        anzahlFalsch.setForeground( Color.BLACK );
         anzahlFalsch.setVisible( true );
 
         JLabel prozent = new JLabel( "Note: " + String.valueOf( calculateGrade( getProzent() ) ) + " (" + String.valueOf( (int)getProzent() ) + "%)" );
@@ -169,7 +169,8 @@ public class Results extends JFrame {
                 temp.setFont( temp.getFont().deriveFont(18f) );
                 temp.setVisible( true );
                 temp.setEditable( false );
-                temp.setForeground( Color.RED );
+                temp.setForeground( new Color( 204, 0, 0 ) );
+                if ( i % 2 == 0 ) temp.setBackground( new Color( 204, 204, 204 ) );
                 if ( errors[i].equals( "" ) ) {
                     temp.setText( "-" );
                 }
@@ -184,7 +185,8 @@ public class Results extends JFrame {
                 temp.setFont( temp.getFont().deriveFont(18f) );
                 temp.setVisible( true );
                 temp.setEditable( false );
-                temp.setForeground( Color.GREEN );
+                temp.setForeground( new Color( 0, 153, 0 ) );
+                if ( i % 2 == 0 ) temp.setBackground( new Color( 204, 204, 204 ) );
                 temp.setText( corrections[i] );
             }
         }

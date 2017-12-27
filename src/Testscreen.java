@@ -71,7 +71,7 @@ public class Testscreen extends JFrame {
 
         // Komponenten initialisieren
         panel = new JPanel();
-        //panel.setBackground( new Color( 102, 204, 255 ) );
+        panel.setBackground( new Color( 102, 204, 255 ) );
         panel.setLayout( null );
         panel.setLocation( 0, 0 );
         int newHeight = anzahlVokabeln * 30 + 100;
@@ -127,7 +127,7 @@ public class Testscreen extends JFrame {
             if ( ( i % 2 ) == 0 ) {
                 inputFieldsL[i].setEditable( false );
                 inputFieldsL[i].setText( germanWords[i] );
-                inputFieldsL[i].setBackground( Color.GRAY );
+                inputFieldsL[i].setBackground( new Color( 153, 153, 153 ) );
             }
         }
 
@@ -144,7 +144,7 @@ public class Testscreen extends JFrame {
             if ( ( j % 2 ) == 1 ) {
                 inputFieldsR[j].setEditable( false );
                 inputFieldsR[j].setText( englishWords[j] );
-                inputFieldsR[j].setBackground( Color.GRAY );
+                inputFieldsR[j].setBackground( new Color( 153, 153, 153 ) );
             }
         }
         // ScrollPane hinzufuegen
