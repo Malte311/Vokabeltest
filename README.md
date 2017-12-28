@@ -1,6 +1,6 @@
 # Vokabeltest
 
-Mit diesem Programm können Vokabeltests (mit einem festen Zeitlimit von 7 Minuten) ausgeführt werden. Sobald der Test abgeschlossen ist, gibt das Programm folgende Daten aus:
+Mit diesem Programm können Vokabeltests (mit maximal 50 Vokabeln und einem festen Zeitlimit von 7 Minuten) ausgeführt werden. Sobald der Test abgeschlossen ist, gibt das Programm folgende Daten aus:
 - Anzahl korrekte Eingaben
 - Anzahl falsche Eingaben
 - Anteil an korrekten Eingaben (in Prozent)
@@ -37,4 +37,5 @@ Das Programm bietet die folgenden Funktionalitäten:
 - Einen Vokabeltest starten, der automatisch bewertet wird
 
 Die Stapel werden als einfache Textdateien gespeichert. Dies geschieht unter dem Pfad `/vocab`.
+
 **Achtung**: Das Programm geht davon aus, dass die gespeicherten Textdateien auch tatsächlich unter dem Pfad `/vocab` liegen. Der Pfad kann nicht manuell geändert werden.
