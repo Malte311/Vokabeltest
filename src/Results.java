@@ -23,7 +23,7 @@ public class Results extends JFrame {
     // handler
     private ResultHandler handler;
 
-    public Results( int anzahlKorrekteWoerter, int anzahlFehler, String[] errors, String[] corrections ) {
+    public Results( int anzahlKorrekteWoerter, int anzahlFehler, String[] vorgabe, String[] errors, String[] corrections ) {
         // Frame initialisieren
         super( "Bewertung" );
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -55,7 +55,7 @@ public class Results extends JFrame {
         initButton();
 
         // Korrekte Loesungen von falschen Vokabeln anzeigen
-        showSolution( errors, corrections );
+        showSolution( vorgabe, errors, corrections );
 
         validate();
     }
@@ -149,22 +149,34 @@ public class Results extends JFrame {
 
     /**
      * Zeigt die korrekten Bedeutungen an
+     * @param vorgabe Das vorgegebene Wort
      * @param gErrors Fehler bei deutschen Woertern
      * @param eErrors Fehler bei englischen Woertern
      */
-    public void showSolution( String[] errors, String[] corrections ) {
+    public void showSolution( String[] vorgabe, String[] errors, String[] corrections ) {
         // Abmessungen der Felder
-        int inputFieldWidth = BREITE/2 - 20;
+        int inputFieldWidth = BREITE/3;
         int inputFieldHeight = 30;
 
         JTextField temp;
         // Alle Fehler anzeigen
         for ( int i = 0; i < errors.length; i++ ) {
-            temp = new JTextField();
-            panel.add( temp );
             if ( errors[i] != null && corrections[i] != null ) {
+                // Vorgegebenes Wort anzeigen
+                temp = new JTextField();
+                panel.add( temp );
+                temp.setBounds( 0, 70 + i * inputFieldHeight, inputFieldWidth + 10, inputFieldHeight );
+                temp.setHorizontalAlignment( JTextField.CENTER );
+                temp.setFont( temp.getFont().deriveFont(18f) );
+                temp.setVisible( true );
+                temp.setEditable( false );
+                if ( i % 2 == 0 ) temp.setBackground( new Color( 204, 204, 204 ) );
+                temp.setText( vorgabe[i] );
+
                 // Fehler anzeigen
-                temp.setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth + 10, inputFieldHeight );
+                temp = new JTextField();
+                panel.add( temp );
+                temp.setBounds( 5 + inputFieldWidth, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
                 temp.setHorizontalAlignment( JTextField.CENTER );
                 temp.setFont( temp.getFont().deriveFont(18f) );
                 temp.setVisible( true );
@@ -180,7 +192,7 @@ public class Results extends JFrame {
                 // Korrektur anzeigen
                 temp = new JTextField();
                 panel.add( temp );
-                temp.setBounds( BREITE/2, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+                temp.setBounds( 2 * inputFieldWidth, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
                 temp.setHorizontalAlignment( JTextField.CENTER );
                 temp.setFont( temp.getFont().deriveFont(18f) );
                 temp.setVisible( true );

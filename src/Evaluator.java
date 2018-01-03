@@ -12,6 +12,7 @@ public class Evaluator {
     private String[] inputL;
     private String[] inputR;
     // Speichert alle falschen Eingaben
+    private String[] vorgabe;
     private String[] errors;
     private String[] corrections;
 
@@ -59,6 +60,7 @@ public class Evaluator {
         }
 
         // Arrays fuer spaeter initialisieren
+        vorgabe = new String[germanWords.length];
         errors = new String[germanWords.length];
         corrections = new String[germanWords.length];
     }
@@ -75,11 +77,13 @@ public class Evaluator {
         for ( int i = 0; i < inputL.length; i++ ) {
             // Richtiges TextFeld auswaehlen
             if ( Main.getFenster().getHandler().getTrainer().getTestscreen().getInputFieldsL()[i].isEditable() ) {
+                vorgabe[index] = englishWords[i];
                 in = inputL[i];
                 correct = germanWords[i];
                 ger = true;
             }
             else {
+                vorgabe[index] = germanWords[i];
                 in = inputR[i];
                 correct = englishWords[i];
                 ger = false;
@@ -125,7 +129,7 @@ public class Evaluator {
         // Aktuellen Frame beenden
         Main.getFenster().getHandler().getTrainer().getTestscreen().dispose();
         // Ergebnisfenster oeffnen
-        results = new Results( anzahlKorrekteWoerter, anzahlFehler, errors, corrections );
+        results = new Results( anzahlKorrekteWoerter, anzahlFehler, vorgabe, errors, corrections );
     }
 
     /**
