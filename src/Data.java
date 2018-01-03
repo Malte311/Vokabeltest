@@ -397,35 +397,67 @@ public class Data {
          jd.setLocationRelativeTo( Main.getFenster().getFrame() );
          jd.setLayout( new BorderLayout() );
 
-         // Eintraege anzeigen
-         JTextArea jTextArea = new JTextArea();
-         int labelWidth = 100;
-         int labelHeight = 25;
-         // Wir fuegen alle Eintraege zur TextArea hinzu
+         // Abmessungen der Felder
+         int inputFieldWidth = Main.getFenster().getBreite()/2 - 20;
+         int inputFieldHeight = 30;
+
+         JPanel panel = new JPanel();
+         panel.setBackground( new Color( 102, 204, 255 ) );
+         panel.setLayout( null );
+         panel.setLocation( 0, 0 );
+         if ( vocabs != null ) {
+             int newHeight = 0;
+             for ( int i = 0; i < vocabs.length; i++ ) {
+                 if ( vocabs[i] != null  ) newHeight++;
+             }
+             newHeight = newHeight * inputFieldHeight + 100;
+             panel.setPreferredSize( new Dimension( Main.getFenster().getBreite(), newHeight ) );
+         }
+
+         JTextField temp;
+         // Alle Fehler anzeigen
          if ( vocabs != null ) {
              String[] separate = null;
              for ( int i = 0; i < vocabs.length; i++ ) {
-                 if ( vocabs[i] != null ) separate = vocabs[i].split( "=" );
-                 if ( separate != null ) {
-                     for ( int j = 0; j < separate.length; j++ ) {
-                         jTextArea.append( separate[j] + "\t\t\t\t\t" );
+                 if ( vocabs[i] != null ) {
+                     separate = vocabs[i].split( "=" );
+                     if ( separate != null ) {
+                         for ( int j = 0; j < separate.length; j++ ) {
+                             temp = new JTextField();
+                             panel.add( temp );
+                             // Deutsche Vokabeln
+                             temp.setBounds( 10, 70 + i * inputFieldHeight, inputFieldWidth + 10, inputFieldHeight );
+                             temp.setHorizontalAlignment( JTextField.CENTER );
+                             temp.setFont( temp.getFont().deriveFont(18f) );
+                             temp.setVisible( true );
+                             temp.setEditable( false );
+                             if ( i % 2 == 0 ) temp.setBackground( new Color( 204, 204, 204 ) );
+                             temp.setText( separate[j] );
+                             // Englische Vokabeln
+                             if ( j < separate.length - 1 ) {
+                                 temp = new JTextField();
+                                 panel.add( temp );
+                                 temp.setBounds( Main.getFenster().getBreite()/2, 70 + i * inputFieldHeight, inputFieldWidth, inputFieldHeight );
+                                 temp.setHorizontalAlignment( JTextField.CENTER );
+                                 temp.setFont( temp.getFont().deriveFont(18f) );
+                                 temp.setVisible( true );
+                                 temp.setEditable( false );
+                                 if ( i % 2 == 0 ) temp.setBackground( new Color( 204, 204, 204 ) );
+                                 temp.setText( separate[j+1] );
+                             }
+                         }
                      }
-                     jTextArea.append( "\n" );
                  }
              }
          }
-         // TextArea settings
-         jTextArea.setEditable( false );
-         jd.add( jTextArea );
-         jTextArea.setVisible(true);
-
-         // ScrollPane hinzufuegen
-         JScrollPane jsp = new JScrollPane( jTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+         JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
          jd.add( jsp, BorderLayout.CENTER );
-         jTextArea.setCaretPosition( 0 );
+         jsp.getVerticalScrollBar().setUnitIncrement(12);
+         jsp.setVisible( true );
 
          // Dialog anzeigen
          jd.setVisible( true );
+         jd.validate();
      }
 
      /**

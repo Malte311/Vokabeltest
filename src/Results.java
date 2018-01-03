@@ -192,6 +192,7 @@ public class Results extends JFrame {
         }
         JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
         add( jsp, BorderLayout.CENTER );
+        jsp.getVerticalScrollBar().setUnitIncrement(12);
         jsp.setVisible( true );
     }
 

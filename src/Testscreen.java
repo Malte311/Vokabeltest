@@ -150,6 +150,7 @@ public class Testscreen extends JFrame {
         // ScrollPane hinzufuegen
         JScrollPane jsp = new JScrollPane( panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
         add( jsp, BorderLayout.CENTER );
+        jsp.getVerticalScrollBar().setUnitIncrement(12);
     }
 
     /**
