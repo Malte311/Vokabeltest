@@ -1,6 +1,7 @@
 # Vokabeltest
 
-Mit diesem Programm können Vokabeltests (mit maximal 50 Vokabeln und einem festen Zeitlimit von 7 Minuten) ausgeführt werden. Sobald der Test abgeschlossen ist, gibt das Programm folgende Daten aus:
+Mit diesem Programm können Vokabeltests (mit maximal 50 Vokabeln und einem festen Zeitlimit von 7 Minuten) ausgeführt werden. Dieses Programm beinhaltet (bisher) keine Flashcards/Karteikarten!
+Sobald der Test abgeschlossen ist, gibt das Programm folgende Daten aus:
 - Anzahl korrekte Eingaben
 - Anzahl falsche Eingaben
 - Anteil an korrekten Eingaben (in Prozent)
@@ -16,13 +17,13 @@ Die Bewertung erfolgt dabei folgendermaßen:
 Java muss installiert sein, um dieses Programm auszuführen.
 Ist dies erledigt, kann wie folgt vorgegangen werden:
 - Das Terminal öffnen
-- In den Ordner `/src` navigieren
+- In den Ordner `Vokabeltest/src` navigieren
 - Den Befehl `javac *.java` eingeben (dieser kompiliert die `.java`-Quelldateien und erzeugt `.class`-Dateien).
 - Nun kann das Programm über die Konsole mittels `java Main` gestartet werden. Um das Programm auf diese Weise starten zu können, müssen die `.class`-Dateien vorhanden sein.
 
 Alternativ kann nach dem Kompilieren auch eine `.jar`-Datei erzeugt werden, die per Doppelklick gestartet werden kann: 
 - Das Terminal öffnen
-- In den Ordner `/src` navigieren
+- In den Ordner `Vokabeltest/src` navigieren
 - Den Befehl `javac *.java` eingeben
 - Den Befehl `jar cvmf META-INF/MANIFEST.MF Dateiname.jar *.class` nach dem Kompilieren in die Konsole eingeben. Nun sollte eine ausführbare `.jar`-Datei im selben Verzeichnis erzeugt worden sein. Die `.java`- sowie die `.class`-Dateien werden nicht benötigt, um das Programm nutzen zu können.
 
