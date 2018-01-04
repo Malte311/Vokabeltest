@@ -73,50 +73,48 @@ public class Evaluator {
         String in;
         String correct;
         String[] parts;
-        boolean ger = true;
+        String[] partsCorrect;
         for ( int i = 0; i < inputL.length; i++ ) {
             // Richtiges TextFeld auswaehlen
             if ( Main.getFenster().getHandler().getTrainer().getTestscreen().getInputFieldsL()[i].isEditable() ) {
                 vorgabe[index] = englishWords[i];
-                in = inputL[i];
+                partsCorrect = germanWords[i].split( "," );
+                in = inputL[i].trim();
                 correct = germanWords[i];
-                ger = true;
             }
             else {
                 vorgabe[index] = germanWords[i];
-                in = inputR[i];
+                partsCorrect = englishWords[i].split( "," );
+                in = inputR[i].trim();
                 correct = englishWords[i];
-                ger = false;
             }
             // Zunaechst zerlegen wir den Input in einzelne Bedeutungen
             if ( in.contains( "," ) ) {
                 parts = in.split( "," );
-            }
-            else if ( in.contains( ";" ) ) {
-                parts = in.split( ";" );
             }
             else {
                 parts = new String[]{ in };
             }
 
             // Nun durchlaufen wir die einzelnen Bedeutungen
+            boolean stop = false;
             for ( int j = 0; j < parts.length; j++ ) {
-                // Wenn Input enthalten ist, ist das Wort schonmal korrekt
-                if ( !parts[j].equals( "" ) && ger && germanWords[i].contains( parts[j] ) ) {
-                    anzahlKorrekteWoerter++;
-                    break;
+                for ( int k = 0; k < partsCorrect.length; k++ ) {
+                    // Wenn Input enthalten ist, ist das Wort schonmal korrekt
+                    if ( !parts[j].trim().equals( "" ) && !partsCorrect[k].trim().equals( "" ) && parts[j].trim().equals( partsCorrect[k].trim() ) ) {
+                        stop = true;
+                        anzahlKorrekteWoerter++;
+                        break;
+                    }
                 }
-                else if ( !parts[j].equals( "" ) && !ger && englishWords[i].contains( parts[j] ) ) {
-                    anzahlKorrekteWoerter++;
-                    break;
-                }
-
+                if ( stop ) break;
                 // Ansonsten war die Eingabe leider falsch (wenn alle Bedeutungen durchprobiert wurden)
                 else if ( j == parts.length - 1 ) {
                     errors[index] = in;
                     corrections[index] = correct;
                     anzahlFehler++;
                     index++;
+                    break;
                 }
             }
         }

@@ -151,20 +151,27 @@ public class Flashcards extends JFrame {
             confirm.setText( "Weiter" );
             alreadyClicked = true;
             loesung.setVisible( true );
-            String[] parts = englishWords[index].split( "," );
-            for ( int i = 0; i < parts.length; i++ ) {
-                // Loesung korrekt
-                if ( eingabe.getText().trim().contains( parts[i] ) ) {
-                    info.setText( "Korrekt!" );
-                    info.setForeground( new Color( 0, 153, 0 ) );
-                    // Wort rausloeschen, da es korrekt erkannt wurde
-                    germanWords[index] = null;
-                    englishWords[index] = null;
-                    korrekt++;
-                    break;
+            String[] partsVorgabe = englishWords[index].split( "," );
+            String[] partsEingabe = eingabe.getText().trim().split( "," );
+            boolean stop = false;
+            for ( int i = 0; i < partsVorgabe.length; i++ ) {
+                for ( int j = 0; j < partsEingabe.length; j++ ) {
+                    // Loesung korrekt
+                    if ( partsVorgabe[i].equals( partsEingabe[j] ) ) {
+                        info.setText( "Korrekt!" );
+                        info.setForeground( new Color( 0, 153, 0 ) );
+                        // Wort rausloeschen, da es korrekt erkannt wurde
+                        germanWords[index] = null;
+                        englishWords[index] = null;
+                        korrekt++;
+                        stop = true;
+                        break;
+                    }
                 }
+                // Es wurde bereits eine korrekte Loesung gefunden: Fertig.
+                if ( stop ) break;
                 // Loesung nicht korrekt
-                else if ( i == parts.length - 1 ) {
+                else if ( i == partsVorgabe.length - 1 ) {
                     info.setText( "Leider nicht richtig" );
                     info.setForeground( new Color( 204, 0, 0 ) );
                     nichtKorrekt++;
@@ -203,7 +210,7 @@ public class Flashcards extends JFrame {
     /**
      * Loescht richtige Woerter raus, damit falsche wiederholt werden koennen
      */
-    public void resetWords() {
+    private void resetWords() {
         int count = 0;
         for ( int i = 0; i < germanWords.length; i++ ) {
             if ( germanWords[i] != null ) count++;
@@ -233,7 +240,7 @@ public class Flashcards extends JFrame {
     /**
      * Zeigt das Ergebnis an
      */
-    public void showResult() {
+    private void showResult() {
         finished = true;
         confirm.setVisible( false );
         vorgabe.setText( String.valueOf( korrekt ) + " korrekte W\u00F6rter" );
@@ -252,7 +259,7 @@ public class Flashcards extends JFrame {
     /**
      * Vertauscht deutsche und englische Woerter, damit in beide Richtungen gelernt wird
      */
-    public void swapWords() {
+    private void swapWords() {
         try {
             Main.getFenster().getData().readTxt( list );
         }
@@ -267,7 +274,7 @@ public class Flashcards extends JFrame {
     /**
      * Mischt die Reihenfolge der Woerter
      */
-    public void shuffleWords() {
+    private void shuffleWords() {
         String tmp1 = "";
         String tmp2 = "";
         int rand = 0;
