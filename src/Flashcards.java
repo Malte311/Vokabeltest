@@ -181,6 +181,7 @@ public class Flashcards extends JFrame {
             info.setVisible( true );
             eingabe.setEditable( false );
         }
+        eingabe.requestFocus();
     }
 
     /**
