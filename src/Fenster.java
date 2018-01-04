@@ -20,6 +20,8 @@ public class Fenster {
     private JButton showEntries;
     // Button zum Loeschen von Stapeln
     private JButton deleteList;
+    // Button zum Lernen von Karteikarten
+    private JButton startFlashcards;
     // Abmessungen der Buttons
     private final int BUTTON_WIDTH = 150;
     private final int BUTTON_HEIGHT = 30;
@@ -113,9 +115,16 @@ public class Fenster {
         deleteList.setBackground( new Color( 175, 238, 238 ) );
         deleteList.setVisible( true );
         deleteList.addActionListener( handler );
+        // startFlashcards Button settings
+        startFlashcards = new JButton( "Karteikarten lernen" );
+        startFlashcards.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + 6 * BUTTON_HEIGHT + 60, BUTTON_WIDTH, BUTTON_HEIGHT );
+        frame.add( startFlashcards );
+        startFlashcards.setBackground( new Color( 30, 144, 255 ) );
+        startFlashcards.setVisible( true );
+        startFlashcards.addActionListener( handler );
         // startTest Button settings
-        startTest = new JButton( "Test starten" );
-        startTest.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + 6 * BUTTON_HEIGHT + 60, BUTTON_WIDTH, BUTTON_HEIGHT );
+        startTest = new JButton( "Vokabeltest starten" );
+        startTest.setBounds( BREITE/2 - BUTTON_WIDTH/2, Y_START + 7 * BUTTON_HEIGHT + 70, BUTTON_WIDTH, BUTTON_HEIGHT );
         frame.add( startTest );
         startTest.setBackground( new Color( 30, 144, 255 ) );
         startTest.setVisible( true );
@@ -240,6 +249,14 @@ public class Fenster {
      */
     public JButton getDeleteList() {
         return deleteList;
+    }
+
+    /**
+     * Gibt den Button zum Lernen von Flashcards zurueck
+     * @return startFlashcards Der Button zum Lernen von Flashcards
+     */
+    public JButton getStartFlashcards() {
+        return startFlashcards;
     }
 
     /**

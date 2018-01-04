@@ -4,6 +4,7 @@ import javax.swing.*;
 public class StartscreenHandler implements ActionListener {
 
     private Vokabeltrainer trainer;
+    private Flashcards flashcards;
     // Standardgemaess Trennzeichen fuer Windows
     private String trennzeichen = "\\";
 
@@ -100,6 +101,12 @@ public class StartscreenHandler implements ActionListener {
                 Main.getFenster().getData().deleteList( s );
             }
         }
+        // Der Button zum Lernen der Karteikarten wurde gedrueckt
+        if ( e.getSource() == Main.getFenster().getStartFlashcards() && Main.getFenster().getReady() ) {
+            String list = (String) Main.getFenster().getChooseList().getSelectedItem();
+            flashcards = new Flashcards( list );
+            flashcards.start();
+        }
     }
 
     /**
@@ -108,5 +115,13 @@ public class StartscreenHandler implements ActionListener {
      */
     public Vokabeltrainer getTrainer() {
         return trainer;
+    }
+
+    /**
+     * Gibt das Flashcards Objekt zurueck
+     * @return flashcards Das Flashcards Objekt
+     */
+    public Flashcards getFlashcards() {
+        return flashcards;
     }
 }
