@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Flashcards extends JFrame {
 
@@ -12,6 +14,8 @@ public class Flashcards extends JFrame {
 
     private int korrekt;
     private int nichtKorrekt;
+
+    private int timeInSeconds;
 
     // Gibt den ausgewaehlten Stapel an
     private String list;
@@ -26,6 +30,7 @@ public class Flashcards extends JFrame {
     private JTextField vorgabe;
     private JTextField eingabe;
     private JTextField loesung;
+    private JTextField time;
     private JLabel info;
 
     public Flashcards( String list ) {
@@ -56,6 +61,7 @@ public class Flashcards extends JFrame {
         // Woerter mischen und Werte initialisieren
         shuffleWords();
 
+        timeInSeconds = 0;
         index = 0;
         alreadyClicked = false;
         swapped = false;
@@ -121,6 +127,15 @@ public class Flashcards extends JFrame {
         loesung.setText( englishWords[index] );
         loesung.setBackground( new Color( 153, 153, 153 ) );
 
+        time = new JTextField();
+        add( time );
+        time.setBounds( Main.getFenster().getBreite() / 2 - labelWidth / 2, Main.getFenster().getHoehe()/2 + 3 * labelHeight, labelWidth, labelHeight );
+        time.setHorizontalAlignment( JTextField.CENTER );
+        time.setFont( time.getFont().deriveFont(18f) );
+        time.setVisible( false );
+        time.setEditable( false );
+        time.setBackground( new Color( 153, 153, 153 ) );
+
         // Eingabe bestaetigen Button
         confirm = new JButton( "OK" );
         add( confirm );
@@ -140,6 +155,8 @@ public class Flashcards extends JFrame {
         info.setFont( info.getFont().deriveFont(18f) );
         info.setBounds( Main.getFenster().getBreite() / 2 + labelWidth / 2 + 5, Main.getFenster().getHoehe()/2 + labelHeight, labelWidth, labelHeight );
         info.setVisible( false );
+
+        startTimer();
     }
 
     /**
@@ -243,6 +260,12 @@ public class Flashcards extends JFrame {
      */
     private void showResult() {
         finished = true;
+        String minutes = String.valueOf( (int)(timeInSeconds / 60) );
+        if ( (int)(timeInSeconds / 60) < 10 ) minutes = "0" + minutes;
+        String seconds = String.valueOf( (int)(timeInSeconds % 60) );
+        if ( (int)(timeInSeconds % 60) < 10 ) seconds = "0" + seconds;
+        time.setText( "Dauer: " + minutes + " Minuten und " + seconds + " Sekunden" );
+        time.setVisible( true );
         confirm.setVisible( false );
         vorgabe.setText( String.valueOf( korrekt ) + " korrekte W\u00F6rter" );
         vorgabe.setForeground( new Color( 0, 153, 0 ) );
@@ -258,6 +281,28 @@ public class Flashcards extends JFrame {
     }
 
     /**
+     * Startet den Timer
+     */
+    public void startTimer() {
+        try {
+            Timer timer = new Timer();
+            timer.schedule( new TimerTask() {
+                @Override
+                public void run() {
+                    timeInSeconds++;
+                    if ( finished ) {
+                        timer.cancel();
+                        timer.purge();
+                    }
+                }
+            }, 0, 1000 );
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Vertauscht deutsche und englische Woerter, damit in beide Richtungen gelernt wird
      */
     private void swapWords() {
@@ -269,6 +314,7 @@ public class Flashcards extends JFrame {
         }
         englishWords = Main.getFenster().getData().getGermanWords();
         germanWords = Main.getFenster().getData().getEnglishWords();
+        shuffleWords();
         swapped = true;
     }
 

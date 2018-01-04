@@ -1,6 +1,6 @@
-# Vokabeltest
+# Vokabeltrainer
 
-Mit diesem Programm können Vokabeln aller Art gelernt werden. 
+Mit diesem Programm können Vokabeln aller Art gelernt werden.
 Das Programm bietet Karteikarten an, mit denen die Vokabeln geübt werden können. Darüber hinaus können Vokabeltests (mit einem festen Zeitlimit von 7 Minuten) durchgeführt werden.
 
 ## Installation
@@ -8,12 +8,13 @@ Das Programm bietet Karteikarten an, mit denen die Vokabeln geübt werden könne
 Java muss installiert sein, um dieses Programm auszuführen.
 Ist dies erledigt, kann wie folgt vorgegangen werden:
 
+- Dieses Projekt herunterladen
 - Das Terminal (bzw. die Eingabeaufforderung) öffnen
 - In den Ordner `Vokabeltrainer/src` navigieren
 - Den Befehl `javac *.java` eingeben und mit Enter bestätigen
 - Den Befehl `jar cvmf META-INF/MANIFEST.MF Dateiname.jar *.class` eingeben und mit Enter bestätigen
 
-Nun wurde die Datei `Dateiname.jar` im selben Verzeichnis erzeugt. Diese Datei beinhaltet das Programm und kann per Doppelklick gestartet werden. 
+Nun wurde die Datei `Dateiname.jar` im selben Verzeichnis erzeugt. Diese Datei beinhaltet das Programm und kann per Doppelklick gestartet werden.
 
 *Hinweis*: Die `.java`-Dateien sowie die `.class`-Dateien werden nicht mehr benötigt, um das Programm nutzen zu können.
 

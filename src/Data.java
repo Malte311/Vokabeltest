@@ -42,6 +42,16 @@ public class Data {
      * Aktualisiert die verfuegbaren Stapel
      */
     public void updateLists() {
+        // Pfad hinzufuegen, falls er fehlt
+        if ( !new File( localPath + path ).exists() ) {
+            try {
+                new File( localPath + path ).mkdirs();
+            }
+            catch ( Exception e ) {
+                e.printStackTrace();
+            }
+        }
+
         // default Datei erstellen, falls sie fehlt
         if ( !new File( localPath + path + trennzeichen + "default.txt" ).exists() ) {
             try {
