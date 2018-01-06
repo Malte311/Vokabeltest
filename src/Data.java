@@ -196,7 +196,14 @@ public class Data {
         else {
             // Inhalt auslesen und in Arrays speichern
             try {
-                reader = new BufferedReader( new FileReader( f.getAbsolutePath() ) );
+                // Textdatei entsprechend dekodieren (da Windows kein UTF-8 sondern ANSI nutzt)
+                if ( !System.getProperty( "os.name" ).toLowerCase().contains( "win" ) ) {
+                    reader = new BufferedReader( new InputStreamReader( new FileInputStream( f ), "Windows-1252" ) );
+                }
+                else {
+                    reader = new BufferedReader( new FileReader( f.getAbsolutePath() ) );
+                }
+
                 String line = null;
                 int counter = 0;
                 while ( ( line = reader.readLine() ) != null ) {
@@ -293,7 +300,15 @@ public class Data {
                 try {
                     // In Textdatei eintragen
                     File f = new File( localPath + path + trennzeichen + ( (String) Main.getFenster().getChooseList().getSelectedItem() ) + ".txt" );
-                    BufferedWriter writer = new BufferedWriter( new FileWriter( f, true ) );
+                    // Text entsprechend kodieren (da Windows kein UTF-8 sondern ANSI nutzt)
+                    BufferedWriter writer = null;
+                    if ( !System.getProperty( "os.name" ).toLowerCase().contains( "win" ) ) {
+                        writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( f, true ), "windows-1252" ) );
+                    }
+                    else {
+                        writer = new BufferedWriter( new FileWriter( f, true ) );
+                    }
+
                     if ( f.length() > 0 ) writer.newLine();
                     writer.write( entry );
                     writer.close();
